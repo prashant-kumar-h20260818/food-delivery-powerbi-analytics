@@ -1,0 +1,116 @@
+-- =========================================================
+-- FOOD DELIVERY ANALYTICS - 21 CORE DAX MEASURES
+-- Create a dedicated "Measures" table and place these measures there.
+-- =========================================================
+
+-- 1. Total Revenue
+Total Revenue =
+SUM ( Orders[OrderAmount] )
+
+-- 2. Total Orders
+Total Orders =
+DISTINCTCOUNT ( Orders[OrderID] )
+
+-- 3. Average Order Value
+Average Order Value =
+DIVIDE ( [Total Revenue], [Total Orders], 0 )
+
+-- 4. Avg Delivery Time
+Avg Delivery Time =
+CALCULATE (
+    AVERAGE ( Orders[DeliveryMinutes] ),
+    Orders[OrderStatus] <> "Cancelled"
+)
+
+-- 5. Total Customers
+Total Customers =
+DISTINCTCOUNT ( Customers[CustomerID] )
+
+-- 6. Total Restaurants
+Total Restaurants =
+DISTINCTCOUNT ( Restaurants[RestaurantID] )
+
+-- 7. Delivered Orders
+Delivered Orders =
+CALCULATE (
+    [Total Orders],
+    Orders[OrderStatus] = "Delivered"
+)
+
+-- 8. Cancelled Orders
+Cancelled Orders =
+CALCULATE (
+    [Total Orders],
+    Orders[OrderStatus] = "Cancelled"
+)
+
+-- 9. Cancel %
+Cancel % =
+DIVIDE ( [Cancelled Orders], [Total Orders], 0 )
+
+-- 10. Late Orders
+Late Orders =
+CALCULATE (
+    [Total Orders],
+    Orders[IsLate] = 1
+)
+
+-- 11. Late Delivery %
+Late Delivery % =
+DIVIDE ( [Late Orders], [Total Orders], 0 )
+
+-- 12. Repeat Customers
+Repeat Customers =
+CALCULATE (
+    DISTINCTCOUNT ( Customers[CustomerID] ),
+    Customers[LifetimeOrders] > 1
+)
+
+-- 13. Repeat Customer %
+Repeat Customer % =
+DIVIDE ( [Repeat Customers], [Total Customers], 0 )
+
+-- 14. Orders per Customer
+Orders per Customer =
+DIVIDE ( [Total Orders], [Total Customers], 0 )
+
+-- 15. Revenue per Restaurant
+Revenue per Restaurant =
+DIVIDE ( [Total Revenue], [Total Restaurants], 0 )
+
+-- 16. Average Rating
+Average Rating =
+AVERAGE ( Restaurants[Rating] )
+
+-- 17. Average Votes
+Average Votes =
+AVERAGE ( Restaurants[Votes] )
+
+-- 18. Revenue YTD
+Revenue YTD =
+TOTALYTD (
+    [Total Revenue],
+    'Date'[Date]
+)
+
+-- 19. Orders YTD
+Orders YTD =
+TOTALYTD (
+    [Total Orders],
+    'Date'[Date]
+)
+
+-- 20. Revenue Previous Month
+Revenue Previous Month =
+CALCULATE (
+    [Total Revenue],
+    DATEADD ( 'Date'[Date], -1, MONTH )
+)
+
+-- 21. Revenue Growth %
+Revenue Growth % =
+DIVIDE (
+    [Total Revenue] - [Revenue Previous Month],
+    [Revenue Previous Month],
+    0
+)
