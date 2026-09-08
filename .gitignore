@@ -1,0 +1,20 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Power BI temporary/lock files
+*.lock
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# Keep the final PBIX when you create it
+!FoodDeliveryAnalytics.pbix
+
+# Generated synthetic data
+data/*.csv
+!data/README.md
