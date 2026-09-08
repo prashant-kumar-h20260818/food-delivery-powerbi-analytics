@@ -1,0 +1,40 @@
+{
+  "name": "QuickBite Executive",
+  "dataColors": [
+    "#6C2BD9",
+    "#00A6A6",
+    "#F2B134",
+    "#E45756",
+    "#4C78A8",
+    "#72B7B2",
+    "#B279A2",
+    "#FF9DA6"
+  ],
+  "background": "#F7F7FA",
+  "foreground": "#1F2330",
+  "tableAccent": "#6C2BD9",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontFamily": "Segoe UI Semibold",
+            "fontSize": 12,
+            "color": {
+              "solid": {
+                "color": "#1F2330"
+              }
+            }
+          }
+        ],
+        "labels": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 10
+          }
+        ]
+      }
+    }
+  }
+}
